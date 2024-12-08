@@ -1,0 +1,33 @@
+﻿<Window x:Class="_1_TaskManagerApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1_TaskManagerApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        
+        <ToolBar DockPanel.Dock="Top">
+            <Button Click="Refresh_Button_Click">Refresh</Button>
+            <Button Click="Kill_Button_Click">Kill</Button>
+            <Button Click="Close_Button_Click">Close</Button>
+            <Button Click="ShowInfo_Button_Click">Show Info</Button>
+            <Border BorderBrush="CornflowerBlue" BorderThickness="0.5" Margin="15,0,0,0"/>
+            <TextBox x:Name="prName" Margin="10,0,5,0" Width="100" BorderThickness="1" BorderBrush="CornflowerBlue"/>
+            <Button Click="StartProcess_Button_Click">Start Process</Button>
+            <Border BorderBrush="CornflowerBlue" BorderThickness="0.5" Margin="10,0,0,0"/>
+        </ToolBar>
+        
+        <DataGrid x:Name="grid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Process Name" Binding="{Binding ProcessName}"/>
+                <DataGridTextColumn Header="PID" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Total Processor Time" Binding="{Binding TotalProcessorTime}"/>
+                <DataGridTextColumn Header="Priority" Binding="{Binding PriorityClass}"/>
+                <DataGridTextColumn Header="User Name" Binding="{Binding UserName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </DockPanel>
+</Window>
