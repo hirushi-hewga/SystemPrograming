@@ -67,7 +67,12 @@ namespace _1_TaskManagerApp
                 MessageBox.Show($"Process Name : {selected.ProcessName}" +
                                 $"\nPID : {selected.Id}" +
                                 $"\nStart Time : {selected.StartTime}" +
-                                $"\nTotal Process Time : {selected.MachineName}");
+                                $"\nUser Name : {selected.MachineName}" +
+                                $"\nMemory Usage : {selected.WorkingSet64 / 1024} KB" +
+                                $"\nPriority : {selected.BasePriority}" +
+                                $"\nMain Window Title : {selected.MainWindowTitle}" +
+                                $"\nTotal Processor Time : {selected.TotalProcessorTime}" +
+                                $"\nResponding : {selected.Responding}");
             }
             catch (Exception ex)
             {
