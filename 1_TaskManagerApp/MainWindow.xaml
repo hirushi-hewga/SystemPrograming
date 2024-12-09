@@ -25,7 +25,7 @@
                 <DataGridTextColumn Header="PID" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Total Processor Time" Binding="{Binding TotalProcessorTime}"/>
                 <DataGridTextColumn Header="Priority" Binding="{Binding PriorityClass}"/>
-                <DataGridTextColumn Header="User Name" Binding="{Binding UserName}"/>
+                <DataGridTextColumn Header="User Name" Binding="{Binding MachineName}"/>
             </DataGrid.Columns>
         </DataGrid>
         

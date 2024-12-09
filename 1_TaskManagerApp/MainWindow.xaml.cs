@@ -2,6 +2,7 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +24,16 @@ namespace _1_TaskManagerApp
             LoadProcesses();
         }
 
+        public bool IsProcessSelected(Process process)
+        {
+            if (process == null)
+            {
+                MessageBox.Show("Process is not selected");
+                return false;
+            }
+            return true;
+        }
+
         public void LoadProcesses()
         {
             grid.ItemsSource = Process.GetProcesses();
@@ -36,28 +47,44 @@ namespace _1_TaskManagerApp
         private void Kill_Button_Click(object sender, RoutedEventArgs e)
         {
             Process selected = grid.SelectedItem as Process;
-            if (selected == null)
-            {
-                MessageBox.Show("Process is not selected");
-                return;
-            }
+            if (!IsProcessSelected(selected)) return;
             selected.Kill();
-            MessageBox.Show("Process is killed");
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Process selected = grid.SelectedItem as Process;
+            if (!IsProcessSelected(selected)) return;
+            selected.CloseMainWindow();
         }
 
         private void ShowInfo_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Process selected = grid.SelectedItem as Process;
+            if (!IsProcessSelected(selected)) return;
+            try
+            {
+                MessageBox.Show($"Process Name : {selected.ProcessName}" +
+                                $"\nPID : {selected.Id}" +
+                                $"\nStart Time : {selected.StartTime}" +
+                                $"\nTotal Process Time : {selected.MachineName}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void StartProcess_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                Process.Start(prName.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
