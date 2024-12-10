@@ -6,92 +6,234 @@ namespace _2024_09_30___Lesson__Processes_
 {
     class Program
     {
+        static void Method1()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                WriteLine($"\t\t\t{i} - Hello in thread");
+                Thread.Sleep(50);
+            }
+        }
+
+        static void Method2()
+        {
+            //Reference of current thread
+            Thread ThisThread = Thread.CurrentThread;
+            //ID of current thread
+            WriteLine("ID of background thread : " + ThisThread.GetHashCode());
+
+            for (int i = 0; i < 50; i++)
+            {
+                WriteLine($"\t\t\t{i} - Hello in thread");
+                //Delay current thread in milliseconds
+                Thread.Sleep(100);
+            }
+        }
+
+        static void Method3()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                WriteLine(i);
+                Thread.Sleep(100);
+            }
+        }
+
+        static void Method4()
+        {
+            try
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    Thread.Sleep(100);
+                    //crush
+                    WriteLine(i.ToString());
+                    //close
+                }
+            }
+            catch (ThreadAbortException e)
+            {
+                WriteLine(e.Message);
+            }
+            finally
+            {
+                WriteLine("End Thread Work");
+            }
+        }
+
+        static void Method5(object str)
+        {
+            string text = (string)str;
+            for (int i = 0; i < 200; i++)
+            {
+                WriteLine("{0} #{1}", text, i.ToString());
+            }
+        }
+
+        static void InfinityLoop()
+        {
+            WriteLine("Thread has been started!");
+            while (true)
+            {
+                int a = 5;
+                int b = a;
+                int c = a + b;
+                new Random().Next(100);
+            }
+        }
+
+        static void ThreadFunk(object a)
+        {
+            string ID = (string)a;
+            for (int i = 0; i < 100; i++)
+            {
+                WriteLine(ID + " " + i);
+                //ReadKey();
+                Thread.Sleep(50);
+            }
+        }
+
         static void Main(string[] args)
         {
-            //Process pr = new Process();
+            #region thread_without_params
 
-            #region Working with Current Process
-
-            ////Process processes = new Process();
-
-            //Process current = Process.GetCurrentProcess();
-
-            ////Process Proirity:
-            //// * Idle
-            //// * BelowNormal
-            //// * Normal(def)
-            //// * AboveNormal
-            //// * High
-            //// * RealTime(only set by OS)
-            //// */
-
-            //current.PriorityClass = ProcessPriorityClass.High;
-
-            ////////////////////////// Process Info
-            //WriteLine("----------- Current Process Info -----------");
-            //WriteLine("Priority class : " + current.PriorityClass);
-            //WriteLine("Name : " + current.ProcessName);
-            //WriteLine("Id : " + current.Id);
-            //WriteLine("Machine name : " + current.MachineName);
-            //WriteLine("Private memory size (KB) : " + current.PrivateMemorySize64 / 1024);
-            //WriteLine("Start time : " + current.StartTime);
-            //WriteLine("Total processor time : " + current.TotalProcessorTime);
-            //WriteLine("User processor time : " + current.UserProcessorTime);
-
-            #endregion
-
-            #region All Processes
-
-            //Process[] processes = Process.GetProcesses();
-
-            //WriteLine("Process name\t\t\tPID\t\t\tPriority\tMachine name");
-            //WriteLine("----------------------------------------------------------");
-            //foreach (var p in processes)
-            //{
-            //    try
-            //    {
-            //        WriteLine($"{p.ProcessName,15}\t{p.Id,10}\t{p.BasePriority,15}\t{p.StartTime,20}");
-            //    }
-            //    catch
-            //    {
-            //        ForegroundColor = ConsoleColor.Red;
-            //        WriteLine($"Error with {p.ProcessName}");
-            //        Console.ResetColor();
-            //    }
-            //}
-
-            #endregion
-
-            #region Start Process
-
-            //Process.Start("Chrome.exe", "stackoverflow.com google.com");
-            //Process.Start("Calc.exe");
-
-            ProcessStartInfo info = new ProcessStartInfo()
+            /*
+            //ThreadStart threadstart = new ThreadStart(Method1);
+            //// ParameterizedThreadStart
+            //Thread thread = new Thread(thread_start);
+            //thread.Priority = ThreadPriority.Lowest;
+            //ThreadStart threadstart = new ThreadStart(Method1);
+            //ThreadStart threadstart = Method1;
+            Thread thread = new Thread(Method1);
+            thread.Priority = ThreadPriority.Highest;
+            thread.Start();
+            //Method1(); // freeze
+            for (int i = 0; i < 100; i++)
             {
-                FileName = @"notepad",
-                Arguments = $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\777.txt",
-                WindowStyle = ProcessWindowStyle.Maximized
-            };
+                WriteLine($"{i} - Hello in main");
+                Thread.Sleep(50);
+            }
+            */
 
-            Process pr = Process.Start(info);
+            #endregion
 
-            WriteLine("Press key to do operation...");
+            #region thread_with_params
+
+            /*
+            //int start = 10;
+            //int end = 2;
+            //Tuple<int, int> tuple = new Tuple<int, int> (start, end);
+
+            //Thread thread = new Thread()
+
+            //ParameterizedThreadStart threadstart = new ParameterizedThreadStart(ThreadFunk);
+            Thread thread1 = new Thread(ThreadFunk);
+            thread1.Start((object)"One");
+
+
+            Thread thread2 = new Thread(ThreadFunk);
+            thread2.Priority = ThreadPriority.Highest;
+            thread2.Start("\t\tTwo");
+
+            ///ReadKey();
+            WriteLine("End!");
+            */
+
+            #endregion
+
+            #region thread_in_background
+
+            /*
+            //Primary and secondary threads
+            ThreadStart ts = new ThreadStart(Method2);
+            Thread t = new Thread(ts);
+            t.IsBackground = true; // default - false
+            t.Start();
+
+            WriteLine("ID of primary thread : " + Thread.CurrentThread.GetHashCode());
+
             ReadKey();
+            WriteLine("Main end!");
+            */
 
+            #endregion
 
-            ////////////////////// Process Methods
-            //pr.Close();                       // clear resources
-            //pr.Refresh();                     // clear cashe
-            //pr.CloseMainWindow();             // close process by normal mode = Alt+F4
-            //pr.Kill();                        // imediatelly stops a process = End Task
-            //WriteLine("Operation has done!");
+            #region thread_pause
 
-            //WriteLine("Wait for exit...");
-            //pr.WaitForExit();
-            //WriteLine("Process was exited...");
-            //WriteLine("Exit code : " + pr.ExitCode);
-            //WriteLine("Exit time : " + pr.ExitTime);
+            /*
+            ThreadStart ts = new ThreadStart(Method3);
+            Thread t = new Thread(ts);
+            t.Start(); // Thread start
+            WriteLine("Press any key to pause thread...");
+
+            ReadKey();
+            t.Suspend(); // Thread pause
+            WriteLine("Thread is stoped!");
+            WriteLine("Press any key to resume thread");
+
+            ReadKey();
+            t.Resume(); // Thread resume
+            */
+
+            #endregion
+
+            #region thread_force_quit
+
+            /*
+            ThreadStart ts = new ThreadStart(Method4);
+            Thread t = new Thread(ts);
+            t.IsBackground = true;
+            t.Start();
+
+            WriteLine("Press any key to force quit thread...");
+
+            ReadKey();
+            t.Abort();
+            */
+
+            #endregion
+
+            #region thread_priority
+
+            /* Thread priorities
+                * Highest
+                * AboveNormal
+                * Normal (default)
+                * BelowNormal
+                * Lowest
+            */
+
+            /*
+            ParameterizedThreadStart ts = new ParameterizedThreadStart(Method5);
+
+            Thread t1 = new Thread(ts);
+            Thread t2 = new Thread(ts);
+
+            t1.Priority = ThreadPriority.Lowest;
+            t2.Priority = ThreadPriority.Highest;
+
+            ReadKey();
+            t1.Start((object)"t1 : Lowest");
+            t2.Start((object)"\t\t\tt2 : Highest");
+            WriteLine("Hello top");
+            ReadKey();
+            WriteLine("Hello bottom");
+            */
+
+            #endregion
+
+            #region threads
+
+            /**/
+            ConsoleKeyInfo input;
+            do
+            {
+                Thread thread = new Thread(InfinityLoop);
+                thread.Start();
+                //InfinityLoop();
+                input = ReadKey();
+            } while (input.Key != ConsoleKey.Escape);
+
 
             #endregion
         }
