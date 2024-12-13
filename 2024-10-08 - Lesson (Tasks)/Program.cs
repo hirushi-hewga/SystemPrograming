@@ -141,7 +141,7 @@ namespace _2024_10_08___Lesson__Tasks_
 
     #region TaskResult
 
-    /**/
+    /*
     class Program
     {
         static void Main(string[] args)
@@ -149,19 +149,27 @@ namespace _2024_10_08___Lesson__Tasks_
             Console.OutputEncoding = Encoding.UTF8;
 
             ////////////////// Factorial
-            Task<int> task1 = new Task<int>(() => Factorial(5)); // 5! = 1 * 2 * 3 * 4 * 5 = 120
-            task1.ContinueWith(Summ);
+            Task<int> task1 = new Task<int>(() => Factorial(5, 15, "Hello")); // 5! = 1 * 2 * 3 * 4 * 5 = 120
+            Task<int> task3 = new Task<int>(Function); // 5! = 1 * 2 * 3 * 4 * 5 = 120
+            //task1.ContinueWith(Summ);
 
             task1.Start();
+            task1.Wait();
+            Console.WriteLine(task1.Result); // task1.Result == task1.Wait();  freeze
 
-            //task1.Wait();
-            Console.WriteLine($"Факторіал числа 5 = {task1.Result}"); // wait until task complete
+
+            Task<int> t = task1.ContinueWith(Summ);
+            Console.WriteLine(t.Result);
+
+
+            //task1.Wait(); // freeze
+            Console.WriteLine($"Факторіал числа 5 = {task1.Result}"); // freeze
 
             ////////////////////// Book
-            Task<Book> task2 = new Task<Book>(() =>
-            {
-                return new Book { Title = "Війна і мир", Author = "Л. Толстой" };
-            });
+            //Task<Book> task2 = new Task<Book>(() =>
+            //{
+            //    return new Book { Title = "Війна і мир", Author = "Л. Толстой" };
+            //});
 
             //string separator = new string('-', 10);
             //Task<Book> task2 = new Task<Book>(
@@ -179,12 +187,19 @@ namespace _2024_10_08___Lesson__Tasks_
             Book b = task2.Result;  // ожидаем получение результата
             Console.WriteLine($"Назва книги: {b.Title}, автор: {b.Author}");
 
-            Console.WriteLine("Main continue working...");
-            Task.WaitAll(task1, task2);
+            //Console.WriteLine("Main continue working...");
+            //Task.WaitAll(task1, task2);
+        }
+        static int Function()
+        {
+            return Factorial(5, 15, "Hello");
         }
 
-        static int Factorial(int x)
+        static int Factorial(int x, int a, string str)
         {
+            Console.WriteLine("A = " + a);
+            Console.WriteLine(str);
+
             int result = 1;
 
             for (int i = 1; i <= x; i++)
@@ -203,7 +218,6 @@ namespace _2024_10_08___Lesson__Tasks_
         }
     }
 
-
     public class Book
     {
         public string Title { get; set; }
@@ -213,7 +227,42 @@ namespace _2024_10_08___Lesson__Tasks_
             return $"{Title} by {Author}";
         }
     }
+    */
 
+    #endregion
+
+    #region InnerTask
+
+    /*
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var outer = Task.Factory.StartNew(() =>      // outer task
+            {
+                Console.WriteLine("Outer: " + Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine("Outer task starting...");
+
+                var inner = Task.Factory.StartNew(() =>  // inner task
+                {
+                    Console.WriteLine("Inner: " + Thread.CurrentThread.ManagedThreadId);
+
+                    Console.WriteLine("Inner task starting...");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("Inner task finished.");
+
+                }, TaskCreationOptions.AttachedToParent);
+                //inner.Wait();
+                Console.WriteLine("Outer task ending...");
+            });
+
+            outer.Wait(); // waiting outer task
+            Console.WriteLine("End of Main");
+
+            Console.ReadLine();
+        }
+    }
+    */
 
     #endregion
 }
