@@ -87,31 +87,31 @@ namespace _2024_10_08___HW__Tasks_
 
 
             /// 5
-            const int size = 20;
-            int[] array = new int[size];
-            Random rnd = new Random();
-            for (int i = 0; i < array.Length; i++)
-                array[i] = rnd.Next(20) + 1;
-            WriteLine(string.Join(", ", array) + "\n");
-
-            int target;
-            do
-            {
-                Clear();
-                Write("Enter number (1-20) : ");
-                target = int.Parse(ReadLine());
-            } while (target <= 0 || target > 20);
-            WriteLine();
-
-            Task<int[]> distinctTask = Task.Run(() => array.Distinct().ToArray());
-            Task<int[]> sortTask = distinctTask.ContinueWith(prev => prev.Result.OrderBy(i => i).ToArray());
-            Task<int> searchTask = sortTask.ContinueWith(prev => Array.BinarySearch(prev.Result, target));
-
-            Task.WaitAll(distinctTask, sortTask, searchTask);
-
-            WriteLine("Distinct array: " + string.Join(", ", distinctTask.Result));
-            WriteLine("Sorted array: " + string.Join(", ", sortTask.Result));
-            WriteLine($"Index of {target}: {searchTask.Result}");
+            //const int size = 20;
+            //int[] array = new int[size];
+            //Random rnd = new Random();
+            //for (int i = 0; i < array.Length; i++)
+            //    array[i] = rnd.Next(20) + 1;
+            //WriteLine(string.Join(", ", array) + "\n");
+            //
+            //int target;
+            //do
+            //{
+            //    Clear();
+            //    Write("Enter number (1-20) : ");
+            //    target = int.Parse(ReadLine());
+            //} while (target <= 0 || target > 20);
+            //WriteLine();
+            //
+            //Task<int[]> distinctTask = Task.Run(() => array.Distinct().ToArray());
+            //Task<int[]> sortTask = distinctTask.ContinueWith(prev => prev.Result.OrderBy(i => i).ToArray());
+            //Task<int> searchTask = sortTask.ContinueWith(prev => Array.BinarySearch(prev.Result, target));
+            //
+            //Task.WaitAll(distinctTask, sortTask, searchTask);
+            //
+            //WriteLine("Distinct array: " + string.Join(", ", distinctTask.Result));
+            //WriteLine("Sorted array: " + string.Join(", ", sortTask.Result));
+            //WriteLine($"Index of {target}: {searchTask.Result}");
         }
     }
 }
