@@ -33,14 +33,15 @@ namespace _3_AsyncAwaitApp
             //task.Wait(); //freeze
             //list.Items.Add(task.Result); //freeze
 
-            await task;
-            MessageBox.Show("Complete main!!!");
+            int value = await task;
+            list.Items.Add(value);
+            //MessageBox.Show("Complete main!!!");
         }
 
         int GenerateValue()
         {
             Thread.Sleep(random.Next(5000));
-            MessageBox.Show("Generated!!!");
+            //MessageBox.Show("Generated!!!");
             return random.Next(1000);
         }
     }
