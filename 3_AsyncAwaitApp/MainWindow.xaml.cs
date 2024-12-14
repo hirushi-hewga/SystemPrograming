@@ -29,13 +29,22 @@ namespace _3_AsyncAwaitApp
         {
             //int value = GenerateValue(); //freeze
 
-            Task<int> task = Task.Run(GenerateValue);
+            //Task<int> task = Task.Run(GenerateValue);
             //task.Wait(); //freeze
             //list.Items.Add(task.Result); //freeze
 
-            int value = await task;
-            list.Items.Add(value);
+            //int value = await GenerateValueAsync();
+            list.Items.Add(await GenerateValueAsync());
             //MessageBox.Show("Complete main!!!");
+        }
+
+        Task<int> GenerateValueAsync()
+        {
+            return Task.Run(() =>
+            {
+                Thread.Sleep(random.Next(5000));
+                return random.Next(1000);
+            });
         }
 
         int GenerateValue()
