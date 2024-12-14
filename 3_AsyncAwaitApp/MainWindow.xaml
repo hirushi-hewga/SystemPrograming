@@ -8,8 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <ToolBar DockPanel.Dock="Top">
-            <Button Click="Generate_Button_Click">Generate</Button>
-            
+            <!--<Button Click="Generate_Button_Click">Generate</Button>-->
+            <Button Click="From_Button_Click">From</Button>
+            <Button Click="To_Button_Click">To</Button>
+
         </ToolBar>
         <ProgressBar DockPanel.Dock="Bottom" Height="20" Value="20" IsIndeterminate="True"></ProgressBar>
         <ListBox x:Name="list"></ListBox>

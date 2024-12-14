@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,33 +26,51 @@ namespace _3_AsyncAwaitApp
         //async - allow method to use await keyword
         //await - wait task without freezing
 
-        private async void Generate_Button_Click(object sender, RoutedEventArgs e)
+        //private async void Generate_Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //int value = GenerateValue(); //freeze
+
+        //    //Task<int> task = Task.Run(GenerateValue);
+        //    //task.Wait(); //freeze
+        //    //list.Items.Add(task.Result); //freeze
+
+        //    //int value = await GenerateValueAsync();
+        //    list.Items.Add(await GenerateValueAsync());
+        //    //MessageBox.Show("Complete main!!!");
+        //}
+
+        private async void From_Button_Click(object sender, RoutedEventArgs e)
         {
-            //int value = GenerateValue(); //freeze
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            //dialog.InitialDirectory = "C:\\Users";
+            //dialog.IsFolderPicker = true;
+            //dialog.Multiselect = true;
 
-            //Task<int> task = Task.Run(GenerateValue);
-            //task.Wait(); //freeze
-            //list.Items.Add(task.Result); //freeze
-
-            //int value = await GenerateValueAsync();
-            list.Items.Add(await GenerateValueAsync());
-            //MessageBox.Show("Complete main!!!");
-        }
-
-        Task<int> GenerateValueAsync()
-        {
-            return Task.Run(() =>
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                Thread.Sleep(random.Next(5000));
-                return random.Next(1000);
-            });
+                MessageBox.Show("You selected : " + dialog.FileName);
+            }
         }
 
-        int GenerateValue()
+        private async void To_Button_Click(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(random.Next(5000));
-            //MessageBox.Show("Generated!!!");
-            return random.Next(1000);
+
         }
+
+        //Task<int> GenerateValueAsync()
+        //{
+        //    return Task.Run(() =>
+        //    {
+        //        Thread.Sleep(random.Next(5000));
+        //        return random.Next(1000);
+        //    });
+        //}
+
+        //int GenerateValue()
+        //{
+        //    Thread.Sleep(random.Next(5000));
+        //    //MessageBox.Show("Generated!!!");
+        //    return random.Next(1000);
+        //}
     }
 }
