@@ -1,4 +1,6 @@
-﻿namespace _2024_10_11___Lesson__TaskParallelLib_
+﻿using System.Text;
+
+namespace _2024_10_11___Lesson__TaskParallelLib_
 {
     #region Parallel
 
@@ -96,9 +98,9 @@
 
     #endregion
 
-    #region ParallelForeach
+    #region ParallelForEach
 
-    /**/
+    /*
     class Program
     {
         static Random rnd = new Random();
@@ -178,6 +180,91 @@
             Console.WriteLine($"Task executing {Task.CurrentId}");
             Thread.Sleep(3000);
             Console.WriteLine($"Factorial {x} = {result}");
+        }
+    }
+    */
+
+    #endregion
+
+    #region ParallelBreak
+
+    /*
+    // * ParallelLoopResult
+    // * IsCompleted          : определяет, завершилось ли полное выполнение параллельного цикла
+    // * LowestBreakIteration : возвращает индекс, на котором произошло прерывание работы цикла
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+
+            ParallelLoopResult result = Parallel.For(1, 10, Factorial);
+
+            if (!result.IsCompleted)
+                Console.WriteLine($"Выполнение цикла завершено на итерации " +
+                    $"{result.LowestBreakIteration}");
+            else
+                Console.WriteLine("All iteration ended.");
+            Console.ReadLine();
+        }
+        static void Factorial(int x, ParallelLoopState pls)
+        {
+            int result = 1;
+
+            for (int i = 1; i <= x; i++)
+            {
+                result *= i;
+                if (i == 5)
+                    pls.Break();
+            }
+            Console.WriteLine($"Task executing {Task.CurrentId}");
+            Console.WriteLine($"Факторіал числа {x} = {result}");
+        }
+    }
+    */
+
+    #endregion
+
+    #region ParallelBreak
+
+    /**/
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            CancellationToken token = cancelTokenSource.Token;
+            Console.OutputEncoding = Encoding.UTF8;
+
+            int number = 6;
+
+            Task task1 = new Task(() =>
+            {
+                int result = 1;
+                for (int i = 1; i <= number; i++)
+                {
+                    if (token.IsCancellationRequested)
+                    {
+                        Console.WriteLine("Task was canceled!");
+                        return;
+                    }
+
+                    result *= i;
+                    Console.WriteLine($"The factorial of {i} = {result}");
+                    Thread.Sleep(2000);
+                }
+
+            }, token);
+
+            task1.Start();
+
+            Console.WriteLine("Press any key to stop the task:");
+            Console.ReadKey();
+            cancelTokenSource.Cancel();
+
+            Console.WriteLine("Press any key to stop the App");
+            Console.ReadKey();
         }
     }
 
