@@ -11,6 +11,7 @@
             <!--<Button Click="Generate_Button_Click">Generate</Button>-->
             <Button Click="From_Button_Click">From</Button>
             <Button Click="To_Button_Click">To</Button>
+            <Button Click="Copy_Button_Click" Margin="15,0">Copy</Button>
 
         </ToolBar>
         <ProgressBar DockPanel.Dock="Bottom" Height="20" Value="20" IsIndeterminate="True"></ProgressBar>

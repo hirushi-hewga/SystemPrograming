@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +9,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace _3_AsyncAwaitApp
 {
@@ -18,6 +18,9 @@ namespace _3_AsyncAwaitApp
     public partial class MainWindow : Window
     {
         static Random random = new Random();
+
+        public string from_file;
+        public string to_directory;
 
         public MainWindow()
         {
@@ -39,22 +42,42 @@ namespace _3_AsyncAwaitApp
         //    //MessageBox.Show("Complete main!!!");
         //}
 
-        private async void From_Button_Click(object sender, RoutedEventArgs e)
+        private void From_Button_Click(object sender, RoutedEventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            //dialog.InitialDirectory = "C:\\Users";
-            //dialog.IsFolderPicker = true;
-            //dialog.Multiselect = true;
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                from_file = dialog.FileName;
                 MessageBox.Show("You selected : " + dialog.FileName);
             }
         }
 
-        private async void To_Button_Click(object sender, RoutedEventArgs e)
+        private void To_Button_Click(object sender, RoutedEventArgs e)
         {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
 
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                to_directory = dialog.FileName;
+                MessageBox.Show("You selected : " + dialog.FileName);
+            }
+        }
+
+        private async void Copy_Button_Click(object sender, RoutedEventArgs e)
+        {
+            await CopyFileAsync();
+        }
+
+        Task CopyFileAsync()
+        {
+            return Task.Run(() =>
+            {
+                string new_file_path = Path.Combine(to_directory, Path.GetFileName(from_file));
+                File.Copy(from_file, new_file_path, true);
+                MessageBox.Show(new_file_path);
+            });
         }
 
         //Task<int> GenerateValueAsync()
