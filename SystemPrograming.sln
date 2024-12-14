@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2024-10-04 - HW (Thread Syn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2024-10-08 - Lesson (Tasks)", "2024-10-08 - Lesson (Tasks)\2024-10-08 - Lesson (Tasks).csproj", "{88E90ED4-D584-499F-89CC-A6478445BAF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2024-10-08 - HW (Tasks)", "2024-10-08 - HW (Tasks)\2024-10-08 - HW (Tasks).csproj", "{9CC27BC9-955F-47B9-8851-1CFD2CE83290}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2024-10-08 - HW (Tasks)", "2024-10-08 - HW (Tasks)\2024-10-08 - HW (Tasks).csproj", "{9CC27BC9-955F-47B9-8851-1CFD2CE83290}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_AsyncAwaitApp", "3_AsyncAwaitApp\3_AsyncAwaitApp.csproj", "{F261204A-1F47-40AE-B138-3FC9825A9AE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{9CC27BC9-955F-47B9-8851-1CFD2CE83290}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CC27BC9-955F-47B9-8851-1CFD2CE83290}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CC27BC9-955F-47B9-8851-1CFD2CE83290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F261204A-1F47-40AE-B138-3FC9825A9AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F261204A-1F47-40AE-B138-3FC9825A9AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F261204A-1F47-40AE-B138-3FC9825A9AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F261204A-1F47-40AE-B138-3FC9825A9AE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
