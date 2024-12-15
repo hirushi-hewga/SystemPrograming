@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3_AsyncAwaitApp", "3_AsyncA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2024-10-11 - Lesson (TaskParallelLib)", "2024-10-11 - Lesson (TaskParallelLib)\2024-10-11 - Lesson (TaskParallelLib).csproj", "{56425EB8-8DA4-4A21-9B91-56AFE570FBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2024-10-11 - HW (TaskParallelLib)", "2024-10-11 - HW (TaskParallelLib)\2024-10-11 - HW (TaskParallelLib).csproj", "{F1F945FE-AB85-4142-8E5A-AD1A486E63EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2024-10-11 - HW (TaskParallelLib)", "2024-10-11 - HW (TaskParallelLib)\2024-10-11 - HW (TaskParallelLib).csproj", "{F1F945FE-AB85-4142-8E5A-AD1A486E63EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2024-10-14 - Lesson (Unsafe Code. Registry)", "2024-10-14 - Lesson (Unsafe Code. Registry)\2024-10-14 - Lesson (Unsafe Code. Registry).csproj", "{622ABA18-D2A1-49BA-AC5E-1803577C1446}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{F1F945FE-AB85-4142-8E5A-AD1A486E63EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1F945FE-AB85-4142-8E5A-AD1A486E63EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1F945FE-AB85-4142-8E5A-AD1A486E63EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622ABA18-D2A1-49BA-AC5E-1803577C1446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622ABA18-D2A1-49BA-AC5E-1803577C1446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622ABA18-D2A1-49BA-AC5E-1803577C1446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622ABA18-D2A1-49BA-AC5E-1803577C1446}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
