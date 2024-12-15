@@ -6,6 +6,7 @@
     <RootNamespace>_2024_10_14___Lesson__Unsafe_Code._Registry_</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
 </Project>
