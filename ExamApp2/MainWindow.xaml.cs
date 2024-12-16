@@ -54,9 +54,9 @@ namespace ExamApp2
 
         private async void Write_Button_Click(object sender, RoutedEventArgs e)
         {
-            List<FileInfo> info = grid.ItemsSource as List<FileInfo>;
-            if (info.Count() != 0)
+            if (grid.ItemsSource != null)
             {
+                List<FileInfo> info = grid.ItemsSource as List<FileInfo>;
                 string[] str_info = new string[info.Count];
                 for (int i = 0; i < info.Count; i++)
                     str_info[i] = $"File Name : {info[i].Name}\n" +
@@ -65,6 +65,7 @@ namespace ExamApp2
                 File.WriteAllText(@$"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\result.txt",
                     string.Join("\n---------------------------------\n", str_info));
                 MessageBox.Show("Result Saved to Desktop.");
+                return;
             }
             MessageBox.Show("Result not found.");
         }
