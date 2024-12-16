@@ -52,6 +52,23 @@ namespace ExamApp2
             }
         }
 
+        private async void Write_Button_Click(object sender, RoutedEventArgs e)
+        {
+            List<FileInfo> info = grid.ItemsSource as List<FileInfo>;
+            if (info.Count() != 0)
+            {
+                string[] str_info = new string[info.Count];
+                for (int i = 0; i < info.Count; i++)
+                    str_info[i] = $"File Name : {info[i].Name}\n" +
+                                  $"File Path : {info[i].Path}\n" +
+                                  $"Number Of Word : {info[i].Count}";
+                File.WriteAllText(@$"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\result.txt",
+                    string.Join("\n---------------------------------\n", str_info));
+                MessageBox.Show("Result Saved to Desktop.");
+            }
+            MessageBox.Show("Result not found.");
+        }
+
         private async void Find_Button_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(find_textbox.Text))
@@ -61,7 +78,7 @@ namespace ExamApp2
             }
             if (directory == null)
             {
-                MessageBox.Show("Directory not selected");
+                MessageBox.Show("Directory not selected.");
                 return;
             }
             string word = find_textbox.Text;

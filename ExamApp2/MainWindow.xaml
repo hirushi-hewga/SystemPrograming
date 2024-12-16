@@ -9,15 +9,19 @@
     <DockPanel Background="Gray">
         <ToolBar DockPanel.Dock="Top" Background="Black">
             <StackPanel Orientation="Horizontal">
-                <Border BorderThickness="5" Margin="0,0,10,0">
+                <Border BorderThickness="5" Margin="0,0,15,0">
                     <Button Background="DarkGray" Click="From_Button_Click" Padding="2" BorderBrush="Aquamarine">From</Button>
                 </Border>
                 <Border BorderBrush="Gray" BorderThickness="0.5" CornerRadius="20"></Border>
                 <Border BorderThickness="5" Margin="10,0,0,0">
                     <TextBox x:Name="find_textbox" Width="120" Background="DarkGray" Padding="2" BorderBrush="Aquamarine"></TextBox>
                 </Border>
-                <Border BorderThickness="5">
+                <Border BorderThickness="5" Margin="0,0,10,0">
                     <Button Background="DarkGray" Click="Find_Button_Click" Padding="2" BorderBrush="Aquamarine">Find</Button>
+                </Border>
+                <Border BorderBrush="Gray" BorderThickness="0.5" CornerRadius="20"></Border>
+                <Border BorderThickness="5" Margin="15,0,0,0">
+                    <Button Background="DarkGray" Click="Write_Button_Click" Padding="2" BorderBrush="Aquamarine">Save to File</Button>
                 </Border>
             </StackPanel>
         </ToolBar>
