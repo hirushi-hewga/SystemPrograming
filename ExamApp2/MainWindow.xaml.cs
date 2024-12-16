@@ -65,27 +65,28 @@ namespace ExamApp2
                 return;
             }
             string word = find_textbox.Text;
-            pbar.Value = 20;
-            pbar.IsIndeterminate = true;
-            List<FileInfo> info = FileInfo.FromTuples(await FindAsync(directory, word));
+            pbar.Value = 0;
+            var progress = new Progress<int>(value => { pbar.Value = value; });
+            List<FileInfo> info = FileInfo.FromTuples(await FindAsync(directory, word, progress));
             pbar.Value = pbar.Maximum;
-            pbar.IsIndeterminate = false;
             if (info.Count() != 0) grid.ItemsSource = info;
             else MessageBox.Show("Word not found.");
         }
 
-        private Task<List<(string, string, int)>> FindAsync(string directory_path, string word)
+        private Task<List<(string, string, int)>> FindAsync(string directory_path, string word, IProgress<int> progress)
         {
             return Task.Run(() =>
             {
                 List<(string, string, int)> list = new List<(string, string, int)>();
                 string[] files = Directory.GetFiles(directory_path, "*.txt");
-                Parallel.ForEach(files, file =>
+                int totalFiles = files.Length;
+                Parallel.ForEach(files, (file, state, index) =>
                 {
                     var value = ContainsWordAsync(file, word).Result;
                     if (value.Item3 > 0)
                         lock (list)
                             list.Add(value);
+                    progress?.Report((int)(100 * (index + 1) / totalFiles));
                 });
                 string[] directories = Directory.GetDirectories(directory_path);
                 if (directories.Length != 0)
@@ -93,7 +94,7 @@ namespace ExamApp2
                     Parallel.ForEach(directories, directory =>
                     {
                         lock (list)
-                            list.AddRange(FindAsync(directory, word).Result);
+                            list.AddRange(FindAsync(directory, word, progress).Result);
                     });
                 }
                 return list;
