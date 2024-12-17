@@ -1,10 +1,11 @@
-﻿using static System.Console;
+﻿using Microsoft.Win32;
+using static System.Console;
 
 namespace _2024_10_14___Lesson__Unsafe_Code._Registry_
 {
     #region stackalloc
 
-    /**/
+    /*
     class Program
     {
         // Project -> Properties -> Build -> Allow Unsafe Code
@@ -136,7 +137,65 @@ namespace _2024_10_14___Lesson__Unsafe_Code._Registry_
             }
         }
     }
+    */
 
+    #endregion
+
+    #region registry
+
+    /*
+    class Program
+    {
+        static void Main()
+        {
+            // Реєстр - це база даних, в якій зберігаються налаштування та параметри операційної системи Windows.
+            // Він містить інформацію про апаратне забезпечення, програмне забезпечення, налаштування користувачів та багато іншого.
+
+            // HKEY_CURRENT_USER - це розділ реєстру, що містить налаштування для поточного користувача.
+            string subKey = @"Software\MyApp";
+
+            // Метод CreateSubKey створює новий підключення або відкриває існуюче.
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(subKey))
+            {
+                // Перевіряємо, чи ключ було успішно створено.
+                if (key != null)
+                {
+                    // Метод SetValue дозволяє зберігати дані в реєстрі під вказаним іменем.
+                    key.SetValue("MyValue", "Hello, World!");
+
+                    // Додатково можна записати інші типи даних.
+                    key.SetValue("MyIntValue", 12345);
+                }
+            }
+            Console.WriteLine("Значення успішно записано в реєстр.");
+
+            // Читаємо значення з реєстру, щоб перевірити, що воно записане правильно.
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(subKey))
+            {
+                if (key != null)
+                {
+                    // Отримуємо значення за ключем "MyValue".
+                    string myValue = (string)key.GetValue("MyValue", "Default Value");
+                    Console.WriteLine($"Значення MyValue з реєстру: {myValue}");
+
+                    // Отримуємо значення за ключем "MyIntValue".
+                    int myIntValue = (int)(key.GetValue("MyIntValue", 0));
+                    Console.WriteLine($"Значення MyIntValue з реєстру: {myIntValue}");
+                }
+            }
+
+            // Видалення значення з реєстру.
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(subKey, true))
+            {
+                if (key != null)
+                {
+                    key.DeleteValue("MyValue", false);
+                    Console.WriteLine("Значення MyValue було видалено з реєстру.");
+                }
+            }
+        }
+    }
+    */
 
     #endregion
 }
